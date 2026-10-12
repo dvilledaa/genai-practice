@@ -12,7 +12,7 @@ A user enters today's metrics from their wearable (sleep, HRV, recovery score), 
 
 ## How to open it
 
-- **Live prototype:** [PASTE PUBLISHED REPLIT LINK]
+- **Live prototype:** https://genai-practice.replit.app
 - Or open this repo in Replit and press **Run**. It is a static page with no backend, no database and no API keys.
 - Tip: use **Load sample data** to try the flow in one click.
 
