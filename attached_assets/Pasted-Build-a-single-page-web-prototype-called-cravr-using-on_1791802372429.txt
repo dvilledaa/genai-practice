@@ -1,0 +1,44 @@
+Build a single-page web prototype called "cravr" using only HTML, CSS and vanilla JavaScript (no backend, no database, no external APIs, no API keys). This is a Wizard-of-Oz prototype: the "AI" recommendation is simulated with prewritten logic and must be clearly labeled as simulated.
+
+PURPOSE
+cravr helps active people who wear a recovery tracker (Whoop, Oura, Garmin) decide what to eat right now, using today's wearable metrics. The user gets ONE recommended meal, not a catalog.
+
+SCREEN 1 – INPUT FORM
+- Short intro line: "Enter today's metrics from your wearable and get one meal recommendation in seconds."
+- Fields:
+  - Sleep last night (hours, number 0–14)
+  - HRV (ms, number 10–200)
+  - Recovery score (%, number 0–100)
+  - Today's training: dropdown [Rest day, Light workout, Hard workout / leg day, Endurance (run/bike)]
+  - Meal: dropdown [Breakfast, Lunch, Post-workout, Dinner]
+  - Diet: dropdown [No restriction, Vegetarian, Vegan]
+  - Allergies: checkboxes [Peanuts, Dairy, Gluten, Shellfish]
+  - Mode: radio [Cook at home, Meal prep, Order delivery]
+- Button: "What should I eat now?"
+- A "Load sample data" button that fills realistic values (6.5 h, 48 ms, 41%, Hard workout, Post-workout, No restriction, no allergies, Order delivery).
+
+VALIDATION (invalid/empty case)
+- If sleep, HRV or recovery is empty or out of range, do not continue. Show a friendly inline message next to the field (e.g., "Enter recovery between 0 and 100 — you can find it in your Whoop/Oura app").
+
+SIMULATED RECOMMENDATION LOGIC
+- Create a hard-coded library of ~15 meals in a JS array. Each meal has: name, short description, tags for recovery state (low / medium / high), training type, meal type, mode (cook / prep / order), diet (vegetarian, vegan), and allergens (peanuts, dairy, gluten, shellfish), plus a "macro direction" string (e.g., "Higher carb, moderate protein").
+- Classify recovery: low = recovery < 40 or sleep < 6; high = recovery >= 70 and sleep >= 7; otherwise medium.
+- FIRST apply hard filters: remove any meal that conflicts with the selected diet or contains a selected allergen. This filter must be deterministic.
+- Then score the remaining meals by how many tags match (recovery state, training, meal type, mode) and pick the top one as the recommendation and the next two as alternatives.
+- If fewer than 3 meals survive the filters, show what is available plus a message: "Few options match all your restrictions — try changing the mode."
+
+SCREEN 2 – RESULT
+- Label at top: "Simulated AI recommendation (prototype)".
+- Recommended meal name, short description, macro direction.
+- "Why today": a 2-sentence explanation generated from a template that cites the user's actual numbers, e.g., "You slept 5.5 h and your recovery is 32%, so your body needs easy-to-digest carbs and protein to recover. With a hard workout today, this meal refuels without feeling heavy."
+- Two alternatives shown as smaller cards.
+- Buttons: Accept, Swap, Reject.
+  - Accept: show "Enjoy your meal! In the full version, cravr would learn from this choice." plus a "Start over" button.
+  - Swap: promote the first alternative to the main recommendation.
+  - Reject: show a quick reason picker [Not in the mood, Don't have the ingredients, Too heavy, Other]. Then show the next-best meal that was not already shown, with a line like "Got it — here's something different." Never repeat a rejected meal.
+- Footer on every screen: "cravr is a prototype and does not provide medical or dietary advice."
+
+DESIGN
+- Clean, minimal, mobile-friendly single column. Orange as primary color, green as accent. No navigation menu, no login, no payments.
+
+Keep all data in memory only. Do not store anything in localStorage. Keep the code in index.html, style.css and script.js.
