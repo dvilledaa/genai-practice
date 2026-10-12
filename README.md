@@ -13,7 +13,7 @@ A user enters today's metrics from their wearable (sleep, HRV, recovery score), 
 ## How to open it
 
 - **Live prototype:** [PASTE PUBLISHED REPLIT LINK]
-- Or open this repo in Replit and press **Run**. It is a static page (`index.html`, `style.css`, `script.js`) with no backend, no database and no API keys.
+- Or open this repo in Replit and press **Run**. It is a static page with no backend, no database and no API keys.
 - Tip: use **Load sample data** to try the flow in one click.
 
 ## AI role: intended vs. current status
@@ -41,8 +41,8 @@ The results page is labeled **"Simulated AI recommendation · Prototype"**, and 
 ## Known limitations
 
 1. **The AI is simulated.** Recommendations come from a fixed meal library and a scoring rule, and the "why today" text is the same template for every meal. Next step: connect an LLM to explain why each specific meal fits, while keeping allergy and diet filters rule-based.
-2. **The meal library is small.** Strict combinations (e.g., vegan + allergies) run out after about 5 options. Next step: expand the library or let the AI generate meals within the hard filters.
-3. **Mode and reject reasons don't fully shape results.** Choosing "Order" can still return prep-at-home items (e.g., overnight oats), and the reason for rejecting a meal doesn't change the next pick yet. Next step: make mode a filter and use the reject reason in the next recommendation.
+2. **The meal library is small.** Strict combinations (vegan + allergies) run out after about 5 options. Next step: expand the library or let the AI generate meals within the hard filters.
+3. **Mode and reject reasons don't fully shape results.** Choosing "Order" can still return prep-at-home items, and the reason for rejecting a meal doesn't change the next pick yet. Next step: make mode a filter and use the reject reason in the next recommendation.
 
 ## Privacy
 

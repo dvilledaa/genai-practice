@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f8f7f2" />
+    <meta name="description" content="One thoughtful meal recommendation, tuned to how you trained and recovered today." />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='18' fill='%23f8f7f2' stroke='%23ef6b3a' stroke-width='2'/%3E%3Cpath d='M14 24V16m6 10V14m6 10V16' stroke='%23ef6b3a' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" />
+    <title>cravr — eat for how you feel</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="wordmark" href="#" aria-label="cravr home" data-home>
+          <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+          cravr<span class="wordmark-period">.</span>
+        </a>
+        <div class="topbar-note"><span class="live-dot"></span> YOUR DAY, YOUR FUEL</div>
+      </header>
+
+      <main>
+        <section class="screen input-screen" id="input-screen" aria-labelledby="page-title">
+          <div class="hero">
+            <div class="eyebrow"><span class="eyebrow-rule"></span> EAT FOR HOW YOU FEEL</div>
+            <h1 id="page-title">Good recovery<br />starts <span>at the table.</span></h1>
+            <p class="hero-copy">Tell us how you slept and moved. Get one meal that meets you where you are today.</p>
+            <div class="hero-stamp"><span class="stamp-sparkle">✳</span> ONE GOOD MEAL. ZERO GUESSWORK.</div>
+          </div>
+
+          <form id="metrics-form" novalidate>
+            <section class="form-section metrics-section" aria-labelledby="metrics-heading">
+              <div class="section-heading">
+                <div class="section-number">01</div>
+                <div>
+                  <h2 id="metrics-heading">Your numbers</h2>
+                  <p>Enter today’s metrics from your wearable.</p>
+                </div>
+                <button class="text-button sample-button" type="button" id="sample-button">
+                  <span aria-hidden="true">↳</span> Load sample data
+                </button>
+              </div>
+
+              <div class="metrics-grid">
+                <label class="field-card" for="sleep">
+                  <span class="field-label">SLEEP LAST NIGHT <span class="required-star">*</span></span>
+                  <span class="input-line"><input id="sleep" name="sleep" type="number" min="0" max="14" step="0.1" placeholder="example: 7.5" inputmode="decimal" aria-describedby="sleep-hint sleep-error" /><span class="unit">hours</span></span>
+                  <span class="field-hint" id="sleep-hint">0–14 hours</span>
+                  <span class="field-error" id="sleep-error" aria-live="polite"></span>
+                </label>
+                <label class="field-card" for="hrv">
+                  <span class="field-label">HRV <span class="required-star">*</span></span>
+                  <span class="input-line"><input id="hrv" name="hrv" type="number" min="10" max="200" step="1" placeholder="example: 52" inputmode="numeric" aria-describedby="hrv-hint hrv-error" /><span class="unit">ms</span></span>
+                  <span class="field-hint" id="hrv-hint">10–200 ms</span>
+                  <span class="field-error" id="hrv-error" aria-live="polite"></span>
+                </label>
+                <label class="field-card" for="recovery">
+                  <span class="field-label">RECOVERY SCORE <span class="required-star">*</span></span>
+                  <span class="input-line"><input id="recovery" name="recovery" type="number" min="0" max="100" step="1" placeholder="example: 76" inputmode="numeric" aria-describedby="recovery-hint recovery-error" /><span class="unit">%</span></span>
+                  <span class="field-hint" id="recovery-hint">0–100%</span>
+                  <span class="field-error" id="recovery-error" aria-live="polite"></span>
+                </label>
+              </div>
+              <p class="form-note"><span aria-hidden="true">ⓘ</span> Find these in your Whoop, Oura, or Garmin app.</p>
+            </section>
+
+            <section class="form-section choices-section" aria-labelledby="choices-heading">
+              <div class="section-heading compact-heading">
+                <div class="section-number">02</div>
+                <div>
+                  <h2 id="choices-heading">Make it yours</h2>
+                  <p>A few details help us find the right fit.</p>
+                </div>
+              </div>
+              <div class="select-grid">
+                <label class="select-field" for="training">
+                  <span class="field-label">TODAY’S TRAINING</span>
+                  <select id="training" name="training">
+                    <option value="rest">Rest day</option>
+                    <option value="light">Light workout</option>
+                    <option value="hard">Hard workout / leg day</option>
+                    <option value="endurance">Endurance (run / bike)</option>
+                  </select>
+                </label>
+                <label class="select-field" for="meal">
+                  <span class="field-label">I’M LOOKING FOR</span>
+                  <select id="meal" name="meal">
+                    <option value="breakfast">Breakfast</option>
+                    <option value="lunch">Lunch</option>
+                    <option value="post-workout">Post-workout</option>
+                    <option value="dinner">Dinner</option>
+                  </select>
+                </label>
+                <label class="select-field" for="diet">
+                  <span class="field-label">HOW I EAT</span>
+                  <select id="diet" name="diet">
+                    <option value="none">No restriction</option>
+                    <option value="vegetarian">Vegetarian</option>
+                    <option value="vegan">Vegan</option>
+                  </select>
+                </label>
+                <fieldset class="mode-field">
+                  <legend class="field-label">I’M IN THE MOOD TO</legend>
+                  <div class="mode-options">
+                    <label class="mode-option"><input type="radio" name="mode" value="cook" checked /><span>Cook</span></label>
+                    <label class="mode-option"><input type="radio" name="mode" value="prep" /><span>Prep</span></label>
+                    <label class="mode-option"><input type="radio" name="mode" value="order" /><span>Order</span></label>
+                  </div>
+                </fieldset>
+              </div>
+
+              <fieldset class="allergy-field">
+                <legend class="field-label">PLEASE LEAVE OUT <span class="legend-aside">Select all that apply</span></legend>
+                <div class="allergy-options">
+                  <label class="check-option"><input type="checkbox" name="allergies" value="peanuts" /><span>Peanuts</span></label>
+                  <label class="check-option"><input type="checkbox" name="allergies" value="dairy" /><span>Dairy</span></label>
+                  <label class="check-option"><input type="checkbox" name="allergies" value="gluten" /><span>Gluten</span></label>
+                  <label class="check-option"><input type="checkbox" name="allergies" value="shellfish" /><span>Shellfish</span></label>
+                </div>
+              </fieldset>
+            </section>
+
+            <div class="submit-row">
+              <p class="submit-aside"><span>✳</span> Made for your day, not a perfect day.</p>
+              <button class="primary-button" type="submit">What should I eat now? <span aria-hidden="true">↗</span></button>
+            </div>
+            <p class="form-summary" id="form-summary" aria-live="polite"></p>
+          </form>
+        </section>
+
+        <section class="screen result-screen" id="result-screen" aria-live="polite" hidden>
+          <div class="result-header">
+            <button class="back-button" id="back-button" type="button"><span aria-hidden="true">←</span> EDIT MY DAY</button>
+            <div class="simulation-badge"><span class="badge-dot"></span> SIMULATED AI RECOMMENDATION <span class="badge-prototype">PROTOTYPE</span></div>
+          </div>
+          <div class="result-intro">
+            <div class="eyebrow"><span class="eyebrow-rule"></span> YOUR NEXT GOOD BITE</div>
+            <h1 id="result-title">A little fuel<br />goes a <span>long way.</span></h1>
+          </div>
+          <div class="recommendation-card" id="recommendation-card"></div>
+          <div class="reject-panel" id="reject-panel" hidden>
+            <div class="reject-heading">
+              <div><span class="field-label">NO WORRIES</span><h3>What wasn’t quite right?</h3></div>
+              <button class="close-reject" type="button" id="close-reject" aria-label="Close reason picker">×</button>
+            </div>
+            <div class="reason-options">
+              <button type="button" class="reason-button" data-reason="Not in the mood">Not in the mood</button>
+              <button type="button" class="reason-button" data-reason="Don't have the ingredients">Don’t have the ingredients</button>
+              <button type="button" class="reason-button" data-reason="Too heavy">Too heavy</button>
+              <button type="button" class="reason-button" data-reason="Other">Other</button>
+            </div>
+          </div>
+          <div class="alternatives-wrap" id="alternatives-wrap">
+            <div class="alternatives-heading"><span class="field-label">ALSO A GOOD FIT</span><span class="alternatives-line"></span></div>
+            <div class="alternatives-list" id="alternatives-list"></div>
+          </div>
+          <div class="few-options" id="few-options" hidden>Few options match all your restrictions — try changing the mode.</div>
+          <div class="accept-state" id="accept-state" hidden>
+            <div class="accept-icon" aria-hidden="true">✓</div>
+            <div><h3>Enjoy your meal!</h3><p>In the full version, cravr would learn from this choice.</p></div>
+            <button class="secondary-button" type="button" id="start-over">Start over <span aria-hidden="true">↗</span></button>
+          </div>
+          <div class="result-footer" id="result-actions">
+            <div class="action-note">Not feeling it? There’s always another good choice.</div>
+            <div class="action-buttons">
+              <button class="secondary-button" type="button" id="reject-button">Not for me <span aria-hidden="true">↗</span></button>
+              <button class="primary-button" type="button" id="swap-button">Swap meal <span aria-hidden="true">↻</span></button>
+              <button class="accept-button" type="button" id="accept-button">I’ll eat this <span aria-hidden="true">✓</span></button>
+            </div>
+          </div>
+          <div class="all-done" id="all-done" hidden>
+            <p>That’s all the fresh ideas for today. You can adjust your preferences for a new set.</p>
+            <button class="secondary-button" type="button" id="all-done-start">Start over <span aria-hidden="true">↗</span></button>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <a class="footer-brand" href="#" data-home>cravr<span>.</span></a>
+        <p>cravr is a prototype and does not provide medical or dietary advice.</p>
+        <span class="footer-est">GOOD FOOD, BETTER RECOVERY <span>✳</span></span>
+      </footer>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
